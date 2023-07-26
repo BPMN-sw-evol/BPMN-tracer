@@ -17,7 +17,6 @@ import org.camunda.bpm.model.bpmn.instance.ScriptTask;
 import org.camunda.bpm.model.bpmn.instance.CallActivity;
 import org.camunda.bpm.model.bpmn.instance.Task;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaConnector;
-import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormData;
 
 public class XMLTracer {
 
@@ -39,8 +38,15 @@ public class XMLTracer {
             for (FlowElement element : flowElements) {
                 if (element instanceof UserTask) {
                     UserTask userTask = (UserTask) element;
-                    String formType = "unknown";
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", userTask.getId(), userTask.getElementType().getTypeName(), userTask.getName(), formType, userTask.getCamundaFormRef());
+                    String userTaskLink = "";
+                    if (getFormType(userTask).equals("Camunda Form")) {
+                        userTaskLink = userTask.getCamundaFormRef();
+                    } else if (getFormType(userTask).equals("Embedded or External Task Form")) {
+                        userTaskLink = userTask.getCamundaFormKey();
+                    }else{
+                        userTaskLink = "N/A";
+                    }
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", userTask.getId(), userTask.getElementType().getTypeName(), userTask.getName(), getFormType(userTask), userTaskLink);
                 } else if (element instanceof ServiceTask) {
                     ServiceTask serviceTask = (ServiceTask) element;
                     System.out.format("%-40s %-20s %-50s %-30s %-50s\n", serviceTask.getId(), serviceTask.getElementType().getTypeName(), serviceTask.getName(), getImplementationType(serviceTask), serviceTask.getCamundaClass());
@@ -143,16 +149,16 @@ public class XMLTracer {
         }
     }
 
-//    private static String getUserTaskFormType(UserTask userTask) {
-//        CamundaFormData formData = userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
-//        String formKey = userTask.getCamundaFormKey();
-//
-//        if (formData != null) {
-//            return "generated task forms";
-//        } else if (formKey != null && !formKey.isEmpty()) {
-//            return "camunda forms";
-//        } else {
-//            return "embedded form";
-//        }
-//    }
+    public static String getFormType(UserTask userTask) {
+        String formType = "Unknown";
+        if (userTask.getCamundaFormRef() != null) {
+            formType = "Camunda Form";
+        } else if (userTask.getCamundaFormKey() != null) {
+            formType = "Embedded or External Task Form";
+        } else if (userTask.getExtensionElements().getElementsQuery().count() > 0) {
+            formType = "Generated Task Form";
+        }
+        return formType;
+    }
+
 }
