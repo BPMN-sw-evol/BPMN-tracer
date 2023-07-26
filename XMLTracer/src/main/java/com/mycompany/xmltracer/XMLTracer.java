@@ -39,30 +39,30 @@ public class XMLTracer {
                 if (element instanceof UserTask) {
                     UserTask userTask = (UserTask) element;
                     String userTaskLink = "";
-                    if (getFormType(userTask).equals("Camunda Form")) {
+                    if (getUserTaskType(userTask).equals("Camunda Form")) {
                         userTaskLink = userTask.getCamundaFormRef();
-                    } else if (getFormType(userTask).equals("Embedded or External Task Form")) {
+                    } else if (getUserTaskType(userTask).equals("Embedded or External Task Form")) {
                         userTaskLink = userTask.getCamundaFormKey();
                     }else{
                         userTaskLink = "N/A";
                     }
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", userTask.getId(), userTask.getElementType().getTypeName(), userTask.getName(), getFormType(userTask), userTaskLink);
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", userTask.getId(), userTask.getElementType().getTypeName(), userTask.getName(), getUserTaskType(userTask), userTaskLink);
                 } else if (element instanceof ServiceTask) {
                     ServiceTask serviceTask = (ServiceTask) element;
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", serviceTask.getId(), serviceTask.getElementType().getTypeName(), serviceTask.getName(), getImplementationType(serviceTask), serviceTask.getCamundaClass());
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", serviceTask.getId(), serviceTask.getElementType().getTypeName(), serviceTask.getName(), getServiceTaskType(serviceTask), serviceTask.getCamundaClass());
                 } else if (element instanceof SendTask) {
                     SendTask sendTask = (SendTask) element;
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", sendTask.getId(), sendTask.getElementType().getTypeName(), sendTask.getName(), getImplementationSendTask(sendTask), sendTask.getAttributeValueNs("camunda", "connectorId"));
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", sendTask.getId(), sendTask.getElementType().getTypeName(), sendTask.getName(), getSendTaskType(sendTask), sendTask.getAttributeValueNs("camunda", "connectorId"));
                 } else if (element instanceof ReceiveTask) {
                     ReceiveTask receiveTask = (ReceiveTask) element;
                     System.out.println(receiveTask.toString());
-                    //System.out.format("%-40s %-20s %-50s %-30s %-50s\n", receiveTask.getId(), receiveTask.getElementType().getTypeName(), receiveTask.getName(), getMessageImplementation(receiveTask));
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", receiveTask.getId(), receiveTask.getElementType().getTypeName(), receiveTask.getName(),"N/A" ,"N/A");
                 } else if (element instanceof BusinessRuleTask) {
                     BusinessRuleTask businessRuleTask = (BusinessRuleTask) element;
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", businessRuleTask.getId(), businessRuleTask.getElementType().getTypeName(), businessRuleTask.getName(), getImplementationBusinessRuleTask(businessRuleTask), businessRuleTask.getCamundaDecisionRef());
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", businessRuleTask.getId(), businessRuleTask.getElementType().getTypeName(), businessRuleTask.getName(), getBusinessRuleTaskType(businessRuleTask), businessRuleTask.getCamundaDecisionRef());
                 } else if (element instanceof ScriptTask) {
                     ScriptTask scriptTask = (ScriptTask) element;
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", scriptTask.getId(), scriptTask.getElementType().getTypeName(), scriptTask.getName(), getImplementationScriptTask(scriptTask), scriptTask.getCamundaResource());
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", scriptTask.getId(), scriptTask.getElementType().getTypeName(), scriptTask.getName(), getScriptTaskType(scriptTask), scriptTask.getCamundaResource());
                 } else if (element instanceof CallActivity) {
                     CallActivity callActivity = (CallActivity) element;
                     System.out.format("%-40s %-20s %-50s %-30s %-50s\n", callActivity.getId(), callActivity.getElementType().getTypeName(), callActivity.getName(), getCalledElementType(callActivity), callActivity.getCalledElement());
@@ -80,7 +80,7 @@ public class XMLTracer {
         }
     }
 
-    private static String getImplementationType(ServiceTask serviceTask) {
+    private static String getServiceTaskType(ServiceTask serviceTask) {
         if (serviceTask.getCamundaClass() != null) {
             //System.out.println(serviceTask.getCamundaClass());
             return "class";
@@ -93,7 +93,7 @@ public class XMLTracer {
         }
     }
 
-    private static String getImplementationSendTask(SendTask sendTask) {
+    private static String getSendTaskType(SendTask sendTask) {
         if (sendTask.getCamundaType() != null && sendTask.getCamundaType().equals("external")) {
             return "external";
         } else if (sendTask.getCamundaClass() != null) {
@@ -109,7 +109,7 @@ public class XMLTracer {
         }
     }
 
-    private static String getImplementationBusinessRuleTask(BusinessRuleTask businessRuleTask) {
+    private static String getBusinessRuleTaskType(BusinessRuleTask businessRuleTask) {
         String decisionRef = businessRuleTask.getCamundaDecisionRef();
         String taskType = businessRuleTask.getCamundaType();
 
@@ -130,7 +130,7 @@ public class XMLTracer {
         }
     }
 
-    private static String getImplementationScriptTask(ScriptTask scriptTask) {
+    private static String getScriptTaskType(ScriptTask scriptTask) {
         if (scriptTask.getCamundaResource() != null) {
             return "external resource";
         } else if (scriptTask.getCamundaResource() != null) {
@@ -149,7 +149,7 @@ public class XMLTracer {
         }
     }
 
-    public static String getFormType(UserTask userTask) {
+    public static String getUserTaskType(UserTask userTask) {
         String formType = "Unknown";
         if (userTask.getCamundaFormRef() != null) {
             formType = "Camunda Form";
