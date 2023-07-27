@@ -17,6 +17,8 @@ import org.camunda.bpm.model.bpmn.instance.ScriptTask;
 import org.camunda.bpm.model.bpmn.instance.CallActivity;
 import org.camunda.bpm.model.bpmn.instance.Task;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaConnector;
+import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormData;
+import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormField;
 
 public class XMLTracer {
 
@@ -38,14 +40,16 @@ public class XMLTracer {
             for (FlowElement element : flowElements) {
                 if (element instanceof UserTask) {
                     UserTask userTask = (UserTask) element;
-                    String userTaskLink = "";
+                    String userTaskLink = "NA";
                     if (getUserTaskType(userTask).equals("Camunda Form")) {
                         userTaskLink = userTask.getCamundaFormRef();
                     } else if (getUserTaskType(userTask).equals("Embedded or External Task Form")) {
                         userTaskLink = userTask.getCamundaFormKey();
-                    }else{
-                        userTaskLink = "N/A";
+                    } else if (getUserTaskType(userTask).equals("Generated Task Form")) {
+                        //getFieldsForm(userTask);
+                        userTaskLink = hasFormFields(userTask);
                     }
+
                     System.out.format("%-40s %-20s %-50s %-30s %-50s\n", userTask.getId(), userTask.getElementType().getTypeName(), userTask.getName(), getUserTaskType(userTask), userTaskLink);
                 } else if (element instanceof ServiceTask) {
                     ServiceTask serviceTask = (ServiceTask) element;
@@ -56,7 +60,7 @@ public class XMLTracer {
                 } else if (element instanceof ReceiveTask) {
                     ReceiveTask receiveTask = (ReceiveTask) element;
                     System.out.println(receiveTask.toString());
-                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", receiveTask.getId(), receiveTask.getElementType().getTypeName(), receiveTask.getName(),"N/A" ,"N/A");
+                    System.out.format("%-40s %-20s %-50s %-30s %-50s\n", receiveTask.getId(), receiveTask.getElementType().getTypeName(), receiveTask.getName(), "N/A", "N/A");
                 } else if (element instanceof BusinessRuleTask) {
                     BusinessRuleTask businessRuleTask = (BusinessRuleTask) element;
                     System.out.format("%-40s %-20s %-50s %-30s %-50s\n", businessRuleTask.getId(), businessRuleTask.getElementType().getTypeName(), businessRuleTask.getName(), getBusinessRuleTaskType(businessRuleTask), businessRuleTask.getCamundaDecisionRef());
@@ -155,10 +159,30 @@ public class XMLTracer {
             formType = "Camunda Form";
         } else if (userTask.getCamundaFormKey() != null) {
             formType = "Embedded or External Task Form";
-        } else if (userTask.getExtensionElements().getElementsQuery().count() > 0) {
+        } else if (userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).count() > 0) {
             formType = "Generated Task Form";
         }
         return formType;
+    }
+
+    public static Collection<CamundaFormField> getFieldsForm(UserTask userTask) {
+        Collection<CamundaFormField> formFields;
+        CamundaFormData camundaFormData = userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
+        if (camundaFormData != null) {
+            return formFields = camundaFormData.getCamundaFormFields();
+        }
+        return null;
+    }
+
+    public static String hasFormFields(UserTask userTask) {
+        CamundaFormData camundaFormData = userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
+        String hasFormField = "Doesn't have fields form";
+        if (camundaFormData != null) {
+            if (!camundaFormData.getCamundaFormFields().isEmpty()) {
+                hasFormField = "Have fields form";
+            }
+        }
+        return hasFormField;
     }
 
 }
