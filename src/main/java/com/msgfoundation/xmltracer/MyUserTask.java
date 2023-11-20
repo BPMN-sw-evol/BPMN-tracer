@@ -1,4 +1,4 @@
-package com.mycompany.xmltracer;
+package com.msgfoundation.xmltracer;
 
 import java.util.Collection;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;

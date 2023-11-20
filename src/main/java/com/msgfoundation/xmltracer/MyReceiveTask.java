@@ -1,4 +1,4 @@
-package com.mycompany.xmltracer;
+package com.msgfoundation.xmltracer;
 
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.instance.ReceiveTask;

@@ -1,4 +1,4 @@
-package com.mycompany.xmltracer;
+package com.msgfoundation.xmltracer;
 
 import java.io.File;
 import javax.swing.JFileChooser;
