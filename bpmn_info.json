@@ -1,0 +1,61 @@
+[ {
+  "taskID" : "Activity_1dl9o0l",
+  "taskType" : "businessRuleTask",
+  "taskImplementationType" : "DMN",
+  "taskReferenceOrImplementation" : "disponibilidadLibro"
+}, {
+  "taskID" : "Activity_1c01dcr",
+  "taskType" : "businessRuleTask",
+  "taskImplementationType" : "DMN",
+  "taskReferenceOrImplementation" : "song"
+}, {
+  "taskID" : "Activity_1qik8f0",
+  "taskType" : "task",
+  "taskImplementationType" : "N/A",
+  "taskReferenceOrImplementation" : "N/A"
+}, {
+  "taskID" : "Activity_14vcy5m",
+  "taskType" : "task",
+  "taskImplementationType" : "N/A",
+  "taskReferenceOrImplementation" : "N/A"
+}, {
+  "taskID" : "Activity_0j8r7l8",
+  "taskType" : "task",
+  "taskImplementationType" : "N/A",
+  "taskReferenceOrImplementation" : "N/A"
+}, {
+  "taskID" : "sentValidationEmailServiceTask",
+  "taskType" : "serviceTask",
+  "taskImplementationType" : "Java class",
+  "taskReferenceOrImplementation" : "unillanos.boosicsbpmn.delegations.UserDelegate"
+}, {
+  "taskID" : "validateAccountActivationServiceTask",
+  "taskType" : "serviceTask",
+  "taskImplementationType" : "Java class",
+  "taskReferenceOrImplementation" : "unillanos.boosicsbpmn.delegations.UserDelegate"
+}, {
+  "taskID" : "Activity_045h1qh",
+  "taskType" : "userTask",
+  "taskImplementationType" : "Generated Task Form",
+  "taskReferenceOrImplementation" : "Have fields form"
+}, {
+  "taskID" : "Activity_1c2gawb",
+  "taskType" : "userTask",
+  "taskImplementationType" : "Generated Task Form",
+  "taskReferenceOrImplementation" : "Have fields form"
+}, {
+  "taskID" : "Activity_0i0infl",
+  "taskType" : "userTask",
+  "taskImplementationType" : "Generated Task Form",
+  "taskReferenceOrImplementation" : "Have fields form"
+}, {
+  "taskID" : "Activity_0r49i9d",
+  "taskType" : "userTask",
+  "taskImplementationType" : "Generated Task Form",
+  "taskReferenceOrImplementation" : "Have fields form"
+}, {
+  "taskID" : "callAutenthicateUser",
+  "taskType" : "callActivity",
+  "taskImplementationType" : "BPMN",
+  "taskReferenceOrImplementation" : "autenthicateUser"
+} ]
