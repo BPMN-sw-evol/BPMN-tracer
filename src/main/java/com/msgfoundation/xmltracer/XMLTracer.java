@@ -4,9 +4,16 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.Collection;
+
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class XMLTracer {
 
@@ -22,8 +29,10 @@ public class XMLTracer {
             System.out.println("Selected File Path: " + file.getAbsolutePath());
             BpmnModelInstance modelInstance = Bpmn.readModelFromFile(file);
             Collection<FlowElement> flowElements = modelInstance.getModelElementsByType(FlowElement.class);
-            System.out.println("Collection size: " + flowElements.size());
-            System.out.format("%-40s %-20s %-50s %-30s %-50s\n", "Task ID", "Task Type", "Task Name", "Implementation Type", "Reference/Implementation");
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
 
             MyUserTask userTask = new MyUserTask();
             MyServiceTask serviceTask = new MyServiceTask();
@@ -35,37 +44,77 @@ public class XMLTracer {
             MyDefaultTask defaultTask = new MyDefaultTask();
 
             for (FlowElement element : flowElements) {
+                ObjectNode jsonNode = objectMapper.createObjectNode();
                 if (userTask.checkTaskType(element)) {
                     userTask.processElement(element);
-                    System.out.print(userTask.toString());
+                    jsonNode.put("taskID", userTask.getTaskID());
+                    jsonNode.put("taskType", userTask.getTaskType());
+                    jsonNode.put("taskImplementationType", userTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", userTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (serviceTask.checkTaskType(element)) {
                     serviceTask.processElement(element);
-                    System.out.print(serviceTask.toString());
+                    jsonNode.put("taskID", serviceTask.getTaskID());
+                    jsonNode.put("taskType", serviceTask.getTaskType());
+                    jsonNode.put("taskImplementationType", serviceTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", serviceTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (sendTask.checkTaskType(element)) {
                     sendTask.processElement(element);
-                    System.out.print(sendTask.toString());
+                    jsonNode.put("taskID", sendTask.getTaskID());
+                    jsonNode.put("taskType", sendTask.getTaskType());
+                    jsonNode.put("taskImplementationType", sendTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", sendTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (receiveTask.checkTaskType(element)) {
                     receiveTask.processElement(element);
-                    System.out.print(receiveTask.toString());
+                    jsonNode.put("taskID", receiveTask.getTaskID());
+                    jsonNode.put("taskType", receiveTask.getTaskType());
+                    jsonNode.put("taskImplementationType", receiveTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", receiveTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (businessRuleTask.checkTaskType(element)) {
                     businessRuleTask.processElement(element);
-                    System.out.print(businessRuleTask.toString());
+                    jsonNode.put("taskID", businessRuleTask.getTaskID());
+                    jsonNode.put("taskType", businessRuleTask.getTaskType());
+                    jsonNode.put("taskImplementationType", businessRuleTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", businessRuleTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (scriptTask.checkTaskType(element)) {
-                    scriptTask.checkTaskType(element);
                     scriptTask.processElement(element);
-                    System.out.print(scriptTask.toString());
+                    jsonNode.put("taskID", scriptTask.getTaskID());
+                    jsonNode.put("taskType", scriptTask.getTaskType());
+                    jsonNode.put("taskImplementationType", scriptTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", scriptTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (callActivity.checkTaskType(element)) {
                     callActivity.processElement(element);
-                    System.out.print(callActivity.toString());
+                    jsonNode.put("taskID", callActivity.getTaskID());
+                    jsonNode.put("taskType", callActivity.getTaskType());
+                    jsonNode.put("taskImplementationType", callActivity.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", callActivity.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 } else if (defaultTask.checkTaskType(element)) {
                     defaultTask.processElement(element);
-                    System.out.print(defaultTask.toString());
-                } else if (defaultTask.checkTaskType(element)) {
-                    defaultTask.processElement(element);
-                    System.out.print(defaultTask.toString());
+                    jsonNode.put("taskID", defaultTask.getTaskID());
+                    jsonNode.put("taskType", defaultTask.getTaskType());
+                    jsonNode.put("taskImplementationType", defaultTask.getTaskImplementationType());
+                    jsonNode.put("taskReferenceOrImplementation", defaultTask.getReferenceOrImplementation());
+                    jsonArray.add(jsonNode);
                 }
-
             }
+
+            try {
+                // Convertir el ArrayNode a formato JSON y imprimirlo
+                String jsonString = objectMapper.writeValueAsString(jsonArray);
+                System.out.println(jsonString);
+
+                // Guardar el JSON en un archivo
+                objectMapper.writeValue(new File("bpmn_info.json"), jsonArray);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } else {
             System.out.println("No file selected.");
         }
