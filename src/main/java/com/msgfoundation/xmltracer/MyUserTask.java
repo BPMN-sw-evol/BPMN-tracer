@@ -1,10 +1,15 @@
 package com.msgfoundation.xmltracer;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
+import org.camunda.bpm.model.bpmn.instance.Lane;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormData;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormField;
+
 
 public class MyUserTask extends Activity {
 
@@ -59,7 +64,9 @@ public class MyUserTask extends Activity {
     @Override
     public void processElement(FlowElement element) {
         userTask = (UserTask) element;
+
     }
+
 
     public String hasFormFields() {
         CamundaFormData camundaFormData = userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
@@ -79,4 +86,23 @@ public class MyUserTask extends Activity {
         }
         return null;
     }
+    
+    public List<String> getDefinedVariables() {
+        List<String> definedVariables = new ArrayList<>();
+
+        Collection<CamundaFormField> formFields = getFieldsForm(userTask);
+
+        if (formFields != null && !formFields.isEmpty()) {
+            for (CamundaFormField formField : formFields) {
+
+                definedVariables.add(formField.getCamundaId());
+            }
+        }
+        return definedVariables;
+    }
+
+    public String getAssignee() {
+        return userTask.getCamundaAssignee();
+    }
+
 }

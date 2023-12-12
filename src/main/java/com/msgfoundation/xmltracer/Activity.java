@@ -10,6 +10,7 @@ public abstract class Activity {
     protected String taskImplementationType;
     protected String referenceOrImplementation;
 
+
     public abstract String getTaskID();
 
     public abstract String getTaskType();
@@ -23,6 +24,7 @@ public abstract class Activity {
     public abstract boolean checkTaskType(FlowElement element);
 
     public abstract void processElement(FlowElement element);
+
 
     public void setTaskID(String taskID) {
         this.taskID = taskID;
@@ -43,7 +45,6 @@ public abstract class Activity {
     public void setReferenceOrImplementation(String referenceOrImplementation) {
         this.referenceOrImplementation = referenceOrImplementation;
     }
-
     @Override
     public String toString() {
         return String.format("%-40s %-20s %-50s %-30s %-50s\n",
@@ -53,5 +54,7 @@ public abstract class Activity {
                 getTaskImplementationType(),
                 getReferenceOrImplementation());
     }
+
+
 
 }
