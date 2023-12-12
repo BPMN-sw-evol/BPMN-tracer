@@ -3,6 +3,9 @@ package com.msgfoundation.xmltracer;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.instance.ServiceTask;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaConnector;
+import org.camunda.bpm.model.bpmn.instance.camunda.CamundaIn;
+
+import java.util.List;
 
 public class MyServiceTask extends Activity {
 

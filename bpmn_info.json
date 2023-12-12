@@ -1,61 +1,34 @@
 [ {
-  "taskID" : "Activity_1dl9o0l",
-  "taskType" : "businessRuleTask",
-  "taskImplementationType" : "DMN",
-  "taskReferenceOrImplementation" : "disponibilidadLibro"
-}, {
-  "taskID" : "Activity_1c01dcr",
-  "taskType" : "businessRuleTask",
-  "taskImplementationType" : "DMN",
-  "taskReferenceOrImplementation" : "song"
-}, {
-  "taskID" : "Activity_1qik8f0",
-  "taskType" : "task",
-  "taskImplementationType" : "N/A",
-  "taskReferenceOrImplementation" : "N/A"
-}, {
-  "taskID" : "Activity_14vcy5m",
-  "taskType" : "task",
-  "taskImplementationType" : "N/A",
-  "taskReferenceOrImplementation" : "N/A"
-}, {
-  "taskID" : "Activity_0j8r7l8",
-  "taskType" : "task",
-  "taskImplementationType" : "N/A",
-  "taskReferenceOrImplementation" : "N/A"
-}, {
-  "taskID" : "sentValidationEmailServiceTask",
+  "taskID" : "Activity_1ee94lw",
   "taskType" : "serviceTask",
   "taskImplementationType" : "Java class",
-  "taskReferenceOrImplementation" : "unillanos.boosicsbpmn.delegations.UserDelegate"
+  "taskReferenceOrImplementation" : "com.msgfoundation.delegation.DatabaseServiceTaskDelegate"
 }, {
-  "taskID" : "validateAccountActivationServiceTask",
-  "taskType" : "serviceTask",
-  "taskImplementationType" : "Java class",
-  "taskReferenceOrImplementation" : "unillanos.boosicsbpmn.delegations.UserDelegate"
-}, {
-  "taskID" : "Activity_045h1qh",
+  "taskID" : "Activity_0h13zv2",
   "taskType" : "userTask",
   "taskImplementationType" : "Generated Task Form",
-  "taskReferenceOrImplementation" : "Have fields form"
+  "taskReferenceOrImplementation" : "Have fields form",
+  "assignee" : "Credit analyst",
+  "variables" : [ "allFine", "coupleName1", "coupleName2", "creationDate", "bothEmployees", "marriageYears", "coupleEmail1", "coupleEmail2", "countReviewsBpm" ]
 }, {
-  "taskID" : "Activity_1c2gawb",
+  "taskID" : "Activity_1emma31",
   "taskType" : "userTask",
   "taskImplementationType" : "Generated Task Form",
-  "taskReferenceOrImplementation" : "Have fields form"
+  "taskReferenceOrImplementation" : "Have fields form",
+  "assignee" : "Married couple",
+  "variables" : [ "marriageYears", "bothEmployees", "applicantCouple", "coupleName1", "coupleName2", "creationDate", "codRequest", "coupleEmail1", "coupleEmail2", "countReviewsBpm" ]
 }, {
-  "taskID" : "Activity_0i0infl",
+  "taskID" : "Activity_0w7pg72",
   "taskType" : "userTask",
   "taskImplementationType" : "Generated Task Form",
-  "taskReferenceOrImplementation" : "Have fields form"
+  "taskReferenceOrImplementation" : "Have fields form",
+  "assignee" : "Credit analyst",
+  "variables" : [ "isValid", "coupleSavings", "housePrices", "quotaValue", "coupleName1", "coupleName2", "bothEmployees", "creationDate", "marriageYears", "coupleEmail1", "coupleEmail2" ]
 }, {
-  "taskID" : "Activity_0r49i9d",
+  "taskID" : "Activity_14mlhta",
   "taskType" : "userTask",
   "taskImplementationType" : "Generated Task Form",
-  "taskReferenceOrImplementation" : "Have fields form"
-}, {
-  "taskID" : "callAutenthicateUser",
-  "taskType" : "callActivity",
-  "taskImplementationType" : "BPMN",
-  "taskReferenceOrImplementation" : "autenthicateUser"
+  "taskReferenceOrImplementation" : "Have fields form",
+  "assignee" : "Credit Committee",
+  "variables" : [ "financialViability", "coupleSavings", "housePrices", "quotaValue", "coupleName1", "coupleName2", "bothEmployees", "creationDate", "marriageYears", "coupleEmail1", "coupleEmail2" ]
 } ]

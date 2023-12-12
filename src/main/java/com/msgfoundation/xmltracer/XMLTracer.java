@@ -4,6 +4,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.Collection;
+import java.util.List;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.camunda.bpm.model.bpmn.instance.Lane;
 
 public class XMLTracer {
 
@@ -51,6 +53,13 @@ public class XMLTracer {
                     jsonNode.put("taskType", userTask.getTaskType());
                     jsonNode.put("taskImplementationType", userTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", userTask.getReferenceOrImplementation());
+                    jsonNode.put("assignee",userTask.getAssignee());
+                    ArrayNode variablesArray = objectMapper.createArrayNode();
+                    List<String> definedVariables = userTask.getDefinedVariables();
+                    for (String variable : definedVariables) {
+                        variablesArray.add(variable);
+                    }
+                    jsonNode.set("variables", variablesArray);
                     jsonArray.add(jsonNode);
                 } else if (serviceTask.checkTaskType(element)) {
                     serviceTask.processElement(element);
