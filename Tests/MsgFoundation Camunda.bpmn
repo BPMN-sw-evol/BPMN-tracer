@@ -298,51 +298,6 @@ Msg Foundation
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P15D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:sendTask id="Activity_0d7jjyd" name="Enviar instrucciones de legalización">
-      <bpmn:extensionElements>
-        <camunda:connector>
-          <camunda:inputOutput>
-            <camunda:inputParameter name="headers">
-              <camunda:map>
-                <camunda:entry key="Accept">application/json</camunda:entry>
-              </camunda:map>
-            </camunda:inputParameter>
-            <camunda:inputParameter name="method">POST</camunda:inputParameter>
-            <camunda:inputParameter name="url">http://localhost:57679/api/ServiceTask/inform-email
-</camunda:inputParameter>
-            <camunda:inputParameter name="payload">{
-'to' :   '${email}',
-'subject':  '${subject}',
-'bodyEmail':  '${bodyEmail}',
-'secret_key':  '${secret_key}'
-}</camunda:inputParameter>
-          </camunda:inputOutput>
-          <camunda:connectorId>http-connector</camunda:connectorId>
-        </camunda:connector>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="secret_key">hola</camunda:inputParameter>
-          <camunda:inputParameter name="bodyEmail">Estimado cliente,
-&lt;br&gt;&lt;br&gt;
-Agradecemos su interés en nuestros servicios y le informamos que para continuar con el proceso de legalización del contrato, es necesario seguir las siguientes instrucciones:
-&lt;ol&gt;
-  &lt;li&gt;Firmar el contrato y pagar los cargos correspondientes.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
-  &lt;li&gt;Legalizar el contrato ante un notario público.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
-  &lt;li&gt;Registrar el contrato en la Cámara de Comercio.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
-  &lt;li&gt;Cumplir con cualquier otro requisito necesario, como obtener seguros o presentar garantías adicionales.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
-&lt;/ol&gt;
-Una vez que haya completado estos pasos, el proceso de legalización del contrato estará completo y podremos continuar con el procesamiento de su solicitud.
-&lt;br&gt;&lt;br&gt;
-Gracias por confiar en nosotros.&lt;br&gt;
-Atentamente,&lt;br&gt;
-Msg Foundation
-
-</camunda:inputParameter>
-          <camunda:inputParameter name="subject">Instrucciones de Legalización del Crédito</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0jq43p8</bpmn:incoming>
-      <bpmn:outgoing>Flow_0fofkbf</bpmn:outgoing>
-    </bpmn:sendTask>
     <bpmn:userTask id="Activity_1gyz0cx" name="Recibir Documentos legalizados al cliente" camunda:formRef="legalizar_documentos" camunda:formRefBinding="latest" camunda:assignee="Oficina Jurídica">
       <bpmn:incoming>Flow_1ub9b86</bpmn:incoming>
       <bpmn:outgoing>Flow_04o52w6</bpmn:outgoing>
@@ -467,6 +422,51 @@ Msg Foundation
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P3D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
+    <bpmn:sendTask id="Activity_0d7jjyd" name="Enviar instrucciones de legalización">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:57679/api/ServiceTask/inform-email
+</camunda:inputParameter>
+            <camunda:inputParameter name="payload">{
+'to' :   '${email}',
+'subject':  '${subject}',
+'bodyEmail':  '${bodyEmail}',
+'secret_key':  '${secret_key}'
+}</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="secret_key">hola</camunda:inputParameter>
+          <camunda:inputParameter name="bodyEmail">Estimado cliente,
+&lt;br&gt;&lt;br&gt;
+Agradecemos su interés en nuestros servicios y le informamos que para continuar con el proceso de legalización del contrato, es necesario seguir las siguientes instrucciones:
+&lt;ol&gt;
+  &lt;li&gt;Firmar el contrato y pagar los cargos correspondientes.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;Legalizar el contrato ante un notario público.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;Registrar el contrato en la Cámara de Comercio.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
+  &lt;li&gt;Cumplir con cualquier otro requisito necesario, como obtener seguros o presentar garantías adicionales.&lt;br&gt;&lt;br&gt;&lt;/li&gt;
+&lt;/ol&gt;
+Una vez que haya completado estos pasos, el proceso de legalización del contrato estará completo y podremos continuar con el procesamiento de su solicitud.
+&lt;br&gt;&lt;br&gt;
+Gracias por confiar en nosotros.&lt;br&gt;
+Atentamente,&lt;br&gt;
+Msg Foundation
+
+</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Instrucciones de Legalización del Crédito</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jq43p8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fofkbf</bpmn:outgoing>
+    </bpmn:sendTask>
     <bpmn:textAnnotation id="TextAnnotation_025zl19">
       <bpmn:text>Administrador digitaliza los documentos del cliente.</bpmn:text>
     </bpmn:textAnnotation>
@@ -512,10 +512,6 @@ Msg Foundation
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1eb500l_di" bpmnElement="Lane_1eb500l" isHorizontal="true">
         <dc:Bounds x="220" y="680" width="2400" height="280" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_025zl19_di" bpmnElement="TextAnnotation_025zl19">
-        <dc:Bounds x="1650" y="820" width="100" height="70" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1m15d5p_di" bpmnElement="Event_11vea6g">
         <dc:Bounds x="262" y="212" width="36" height="36" />
@@ -627,32 +623,50 @@ Msg Foundation
       <bpmndi:BPMNShape id="Activity_03l6c7u_di" bpmnElement="Activity_002uz7r">
         <dc:Bounds x="2298" y="1100" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0x1s0fy_di" bpmnElement="Association_0x1s0fy">
-        <di:waypoint x="1663" y="790" />
-        <di:waypoint x="1688" y="820" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_025zl19_di" bpmnElement="TextAnnotation_025zl19">
+        <dc:Bounds x="1650" y="820" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1b01mdr_di" bpmnElement="Event_1qri84y">
         <dc:Bounds x="1482" y="772" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1445" y="813" width="31" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_04o52w6_di" bpmnElement="Flow_04o52w6">
-        <di:waypoint x="1680" y="750" />
-        <di:waypoint x="1760" y="750" />
+      <bpmndi:BPMNEdge id="Flow_1ykls20_di" bpmnElement="Flow_1ykls20">
+        <di:waypoint x="2503" y="590" />
+        <di:waypoint x="2560" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f2j6mp_di" bpmnElement="Flow_0f2j6mp">
+        <di:waypoint x="2478" y="1005" />
+        <di:waypoint x="2478" y="615" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vi7p95_di" bpmnElement="Flow_0vi7p95">
+        <di:waypoint x="2398" y="1030" />
+        <di:waypoint x="2453" y="1030" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fp6kds_di" bpmnElement="Flow_1fp6kds">
+        <di:waypoint x="1500" y="808" />
+        <di:waypoint x="1500" y="870" />
+        <di:waypoint x="1532" y="870" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10rdire_di" bpmnElement="Flow_10rdire">
+        <di:waypoint x="2233" y="1030" />
+        <di:waypoint x="2298" y="1030" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1w2q72p_di" bpmnElement="Flow_1w2q72p">
         <di:waypoint x="2208" y="1055" />
         <di:waypoint x="2208" y="1140" />
         <di:waypoint x="2298" y="1140" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10rdire_di" bpmnElement="Flow_10rdire">
-        <di:waypoint x="2233" y="1030" />
-        <di:waypoint x="2298" y="1030" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1e3he2z_di" bpmnElement="Flow_1e3he2z">
         <di:waypoint x="2128" y="1030" />
         <di:waypoint x="2183" y="1030" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_036h9p4_di" bpmnElement="Flow_036h9p4">
+        <di:waypoint x="2398" y="1140" />
+        <di:waypoint x="2478" y="1140" />
+        <di:waypoint x="2478" y="1060" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1tvptll_di" bpmnElement="Flow_1tvptll">
         <di:waypoint x="1973" y="750" />
@@ -667,32 +681,77 @@ Msg Foundation
         <di:waypoint x="1860" y="750" />
         <di:waypoint x="1923" y="750" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1ykls20_di" bpmnElement="Flow_1ykls20">
-        <di:waypoint x="2503" y="590" />
-        <di:waypoint x="2560" y="590" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0f2j6mp_di" bpmnElement="Flow_0f2j6mp">
-        <di:waypoint x="2478" y="1005" />
-        <di:waypoint x="2478" y="615" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0yl11ea_di" bpmnElement="Flow_0yl11ea">
-        <di:waypoint x="1220" y="252" />
-        <di:waypoint x="1220" y="230" />
-        <di:waypoint x="603" y="230" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1fp6kds_di" bpmnElement="Flow_1fp6kds">
-        <di:waypoint x="1500" y="808" />
-        <di:waypoint x="1500" y="870" />
-        <di:waypoint x="1532" y="870" />
+      <bpmndi:BPMNEdge id="Flow_04o52w6_di" bpmnElement="Flow_04o52w6">
+        <di:waypoint x="1680" y="750" />
+        <di:waypoint x="1760" y="750" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ub9b86_di" bpmnElement="Flow_1ub9b86">
         <di:waypoint x="1500" y="750" />
         <di:waypoint x="1580" y="750" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fofkbf_di" bpmnElement="Flow_0fofkbf">
+        <di:waypoint x="1360" y="750" />
+        <di:waypoint x="1400" y="750" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0kydkif_di" bpmnElement="Flow_0kydkif">
         <di:waypoint x="1451" y="410" />
         <di:waypoint x="2478" y="410" />
         <di:waypoint x="2478" y="565" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13fjm3d_di" bpmnElement="Flow_13fjm3d">
+        <di:waypoint x="628" y="410" />
+        <di:waypoint x="683" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fo6h63_di" bpmnElement="Flow_1fo6h63">
+        <di:waypoint x="298" y="230" />
+        <di:waypoint x="398" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lona02_di" bpmnElement="Flow_1lona02">
+        <di:waypoint x="758" y="610" />
+        <di:waypoint x="938" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xkfenc_di" bpmnElement="Flow_1xkfenc">
+        <di:waypoint x="708" y="435" />
+        <di:waypoint x="708" y="570" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="639" y="456" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f3mxlr_di" bpmnElement="Flow_1f3mxlr">
+        <di:waypoint x="865" y="410" />
+        <di:waypoint x="938" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09l2fpe_di" bpmnElement="Flow_09l2fpe">
+        <di:waypoint x="733" y="410" />
+        <di:waypoint x="815" y="410" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="733" y="366" width="75" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07t9z1v_di" bpmnElement="Flow_07t9z1v">
+        <di:waypoint x="872" y="480" />
+        <di:waypoint x="840" y="480" />
+        <di:waypoint x="840" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mbn926_di" bpmnElement="Flow_1mbn926">
+        <di:waypoint x="1193" y="410" />
+        <di:waypoint x="1415" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_002xkme_di" bpmnElement="Flow_002xkme">
+        <di:waypoint x="1168" y="385" />
+        <di:waypoint x="1168" y="270" />
+        <di:waypoint x="1202" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oexfu2_di" bpmnElement="Flow_0oexfu2">
+        <di:waypoint x="1038" y="410" />
+        <di:waypoint x="1143" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jq43p8_di" bpmnElement="Flow_0jq43p8">
+        <di:waypoint x="1133" y="750" />
+        <di:waypoint x="1260" y="750" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1146" y="716" width="54" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0lr2glw_di" bpmnElement="Flow_0lr2glw">
         <di:waypoint x="1108" y="725" />
@@ -702,12 +761,10 @@ Msg Foundation
           <dc:Bounds x="1158" y="347" width="56" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0jq43p8_di" bpmnElement="Flow_0jq43p8">
-        <di:waypoint x="1133" y="750" />
-        <di:waypoint x="1260" y="750" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1145" y="716" width="55" height="27" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="Flow_1swckoz_di" bpmnElement="Flow_1swckoz">
+        <di:waypoint x="988" y="650" />
+        <di:waypoint x="988" y="750" />
+        <di:waypoint x="1083" y="750" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1m254fz_di" bpmnElement="Flow_1m254fz">
         <di:waypoint x="1948" y="775" />
@@ -718,79 +775,22 @@ Msg Foundation
           <dc:Bounds x="1847" y="906" width="62" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_002xkme_di" bpmnElement="Flow_002xkme">
-        <di:waypoint x="1168" y="385" />
-        <di:waypoint x="1168" y="270" />
-        <di:waypoint x="1202" y="270" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1mbn926_di" bpmnElement="Flow_1mbn926">
-        <di:waypoint x="1193" y="410" />
-        <di:waypoint x="1415" y="410" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0oexfu2_di" bpmnElement="Flow_0oexfu2">
-        <di:waypoint x="1038" y="410" />
-        <di:waypoint x="1143" y="410" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1f3mxlr_di" bpmnElement="Flow_1f3mxlr">
-        <di:waypoint x="865" y="410" />
-        <di:waypoint x="938" y="410" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07t9z1v_di" bpmnElement="Flow_07t9z1v">
-        <di:waypoint x="872" y="480" />
-        <di:waypoint x="840" y="480" />
-        <di:waypoint x="840" y="435" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1lona02_di" bpmnElement="Flow_1lona02">
-        <di:waypoint x="758" y="610" />
-        <di:waypoint x="938" y="610" />
+      <bpmndi:BPMNEdge id="Flow_06f7pw9_di" bpmnElement="Flow_06f7pw9">
+        <di:waypoint x="578" y="255" />
+        <di:waypoint x="578" y="370" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jx8n1p_di" bpmnElement="Flow_0jx8n1p">
         <di:waypoint x="498" y="230" />
         <di:waypoint x="553" y="230" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1fo6h63_di" bpmnElement="Flow_1fo6h63">
-        <di:waypoint x="298" y="230" />
-        <di:waypoint x="398" y="230" />
+      <bpmndi:BPMNEdge id="Flow_0yl11ea_di" bpmnElement="Flow_0yl11ea">
+        <di:waypoint x="1220" y="252" />
+        <di:waypoint x="1220" y="230" />
+        <di:waypoint x="603" y="230" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06f7pw9_di" bpmnElement="Flow_06f7pw9">
-        <di:waypoint x="578" y="255" />
-        <di:waypoint x="578" y="370" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_09l2fpe_di" bpmnElement="Flow_09l2fpe">
-        <di:waypoint x="733" y="410" />
-        <di:waypoint x="815" y="410" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="733" y="366" width="75" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1xkfenc_di" bpmnElement="Flow_1xkfenc">
-        <di:waypoint x="708" y="435" />
-        <di:waypoint x="708" y="570" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="639" y="456" width="62" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_13fjm3d_di" bpmnElement="Flow_13fjm3d">
-        <di:waypoint x="628" y="410" />
-        <di:waypoint x="683" y="410" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1swckoz_di" bpmnElement="Flow_1swckoz">
-        <di:waypoint x="988" y="650" />
-        <di:waypoint x="988" y="750" />
-        <di:waypoint x="1083" y="750" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0fofkbf_di" bpmnElement="Flow_0fofkbf">
-        <di:waypoint x="1360" y="750" />
-        <di:waypoint x="1400" y="750" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0vi7p95_di" bpmnElement="Flow_0vi7p95">
-        <di:waypoint x="2398" y="1030" />
-        <di:waypoint x="2453" y="1030" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_036h9p4_di" bpmnElement="Flow_036h9p4">
-        <di:waypoint x="2398" y="1140" />
-        <di:waypoint x="2478" y="1140" />
-        <di:waypoint x="2478" y="1060" />
+      <bpmndi:BPMNEdge id="Association_0x1s0fy_di" bpmnElement="Association_0x1s0fy">
+        <di:waypoint x="1663" y="790" />
+        <di:waypoint x="1688" y="820" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

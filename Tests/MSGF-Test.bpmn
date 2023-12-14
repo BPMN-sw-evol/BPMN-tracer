@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0dsajob" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:collaboration id="Collaboration_0stzrfy">
+    <bpmn:participant id="Participant_1hx7keg" name="MsgFoundation - Credit Request" processRef="MSGF-Test" />
+  </bpmn:collaboration>
+  <bpmn:process id="MSGF-Test" isExecutable="true" camunda:historyTimeToLive="1">
+    <bpmn:laneSet id="LaneSet_00l4tfi">
+      <bpmn:lane id="Lane_1admtq3" name="Credit Committeeo">
+        <bpmn:flowNodeRef>Event_0w6rien</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_14mlhta</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0zvk2yk" name="Credit analyst">
+        <bpmn:flowNodeRef>Activity_0h13zv2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1rrp4l2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0w7pg72</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0tj2nvy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1ee94lw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0sf663o</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_05ry7sv" name="Married couple">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1emma31</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1mtmwjv</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Deseo obtener un crédito con MsgFoundation">
+      <bpmn:outgoing>Flow_14z68dw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_0h13zv2" name="Revisar información pareja" camunda:assignee="Credit analyst">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="allFine" label="All fine" type="boolean" />
+          <camunda:formField id="coupleName1" label="Couple Name 1" type="string" />
+          <camunda:formField id="coupleName2" label="Couple Name1" type="string" />
+          <camunda:formField id="creationDate" label="Credit Request Creation Date" type="string" />
+          <camunda:formField id="bothEmployees" label="Both are employeed" type="boolean" />
+          <camunda:formField id="marriageYears" label="marriageYears" type="long" />
+          <camunda:formField id="coupleEmail1" label="Couple Email 1" type="string" />
+          <camunda:formField id="coupleEmail2" label="Couple Email 2" type="string" />
+          <camunda:formField id="countReviewsBpm" label="Count Reviews BPM" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1mnnwoe</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r13bel</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_14z68dw" sourceRef="StartEvent_1" targetRef="Gateway_1mtmwjv" />
+    <bpmn:sequenceFlow id="Flow_1mnnwoe" sourceRef="Activity_1emma31" targetRef="Activity_0h13zv2" />
+    <bpmn:sequenceFlow id="Flow_0r13bel" sourceRef="Activity_0h13zv2" targetRef="Gateway_1rrp4l2" />
+    <bpmn:sequenceFlow id="Flow_0pc6vee" sourceRef="Activity_0w7pg72" targetRef="Gateway_0tj2nvy" />
+    <bpmn:sequenceFlow id="Flow_13h2m3z" name="Si" sourceRef="Gateway_0tj2nvy" targetRef="Activity_14mlhta">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValid == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1hh53wa" name="No" sourceRef="Gateway_0tj2nvy" targetRef="Event_0sf663o">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValid == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0647aye" sourceRef="Activity_14mlhta" targetRef="Event_0w6rien" />
+    <bpmn:sequenceFlow id="Flow_0sw7zso" sourceRef="Activity_1ee94lw" targetRef="Activity_0w7pg72" />
+    <bpmn:endEvent id="Event_0w6rien" name="Crédito aprobado">
+      <bpmn:incoming>Flow_0647aye</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_15uakk4" name="yes" sourceRef="Gateway_1rrp4l2" targetRef="Activity_1ee94lw">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${allFine == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_1rrp4l2" name="¿Is ok?">
+      <bpmn:incoming>Flow_0r13bel</bpmn:incoming>
+      <bpmn:outgoing>Flow_15uakk4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1r6pt9n</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Activity_1emma31" name="Diligenciar formulario de solicitud" camunda:assignee="Married couple">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="marriageYears" label="Marriage Years" type="long" />
+          <camunda:formField id="bothEmployees" label="Both are employeed" type="boolean">
+            <camunda:properties />
+          </camunda:formField>
+          <camunda:formField id="applicantCouple" label="ID Applicant Couple" type="long" />
+          <camunda:formField id="coupleName1" label="Couple Name 1" type="string" />
+          <camunda:formField id="coupleName2" label="Couple Name 2" type="string" />
+          <camunda:formField id="creationDate" label="Credit Request Creation Date" type="string" />
+          <camunda:formField id="codRequest" label="Code Request" type="long" />
+          <camunda:formField id="coupleEmail1" label="Couple Email 1" type="string" />
+          <camunda:formField id="coupleEmail2" label="Couple Email 2" type="string" />
+          <camunda:formField id="countReviewsBpm" label="Count Reviews BPM" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_044usj0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mnnwoe</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1r6pt9n" name="no" sourceRef="Gateway_1rrp4l2" targetRef="Gateway_1mtmwjv">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${allFine == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_1mtmwjv">
+      <bpmn:incoming>Flow_1r6pt9n</bpmn:incoming>
+      <bpmn:incoming>Flow_14z68dw</bpmn:incoming>
+      <bpmn:outgoing>Flow_044usj0</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_044usj0" sourceRef="Gateway_1mtmwjv" targetRef="Activity_1emma31" />
+    <bpmn:userTask id="Activity_0w7pg72" name="Verificar validez" camunda:assignee="Credit analyst">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="isValid" label="Is Valid" type="boolean" />
+          <camunda:formField id="coupleSavings" label="Couple Saving" type="long" />
+          <camunda:formField id="housePrices" label="housePrices" type="long" />
+          <camunda:formField id="quotaValue" label="quotaValue" type="long" />
+          <camunda:formField id="coupleName1" label="Couple Name 1" type="string" />
+          <camunda:formField id="coupleName2" label="Couple Name 2" type="string" />
+          <camunda:formField id="bothEmployees" label="Both are employeed" type="boolean" />
+          <camunda:formField id="creationDate" label="Credit Request Creation Date" type="string" />
+          <camunda:formField id="marriageYears" label="marriageYears" type="long" />
+          <camunda:formField id="coupleEmail1" label="coupleEmail1" type="string" />
+          <camunda:formField id="coupleEmail2" label="Couple Email 2" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0sw7zso</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pc6vee</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_14mlhta" name="Verificar si el crédito tiene viabilidad financiera" camunda:assignee="Credit Committee">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="financialViability" label="Financial Viability" type="boolean" />
+          <camunda:formField id="coupleSavings" label="CoupleSavings" type="long" />
+          <camunda:formField id="housePrices" label="House Prices" type="long" />
+          <camunda:formField id="quotaValue" label="Quota Value" type="long" />
+          <camunda:formField id="coupleName1" label="Couple Name 1" type="string" />
+          <camunda:formField id="coupleName2" label="Couple Name 2" type="string" />
+          <camunda:formField id="bothEmployees" label="Both are employeed" type="boolean" />
+          <camunda:formField id="creationDate" label="Credit Request Creation Date" type="string" />
+          <camunda:formField id="marriageYears" label="marriageYears" type="long" />
+          <camunda:formField id="coupleEmail1" label="Couple Email 1" type="string" />
+          <camunda:formField id="coupleEmail2" label="Couple Email 2" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_13h2m3z</bpmn:incoming>
+      <bpmn:outgoing>Flow_0647aye</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0tj2nvy" name="¿La solicitud es valida?">
+      <bpmn:incoming>Flow_0pc6vee</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hh53wa</bpmn:outgoing>
+      <bpmn:outgoing>Flow_13h2m3z</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_1ee94lw" name="Consultar información financiera" camunda:class="com.msgfoundation.delegation.DatabaseServiceTaskDelegate">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_15uakk4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sw7zso</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0sf663o" name="Solicitud cancelada por inconsistencias">
+      <bpmn:incoming>Flow_1hh53wa</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0stzrfy">
+      <bpmndi:BPMNShape id="Participant_1hx7keg_di" bpmnElement="Participant_1hx7keg" isHorizontal="true">
+        <dc:Bounds x="157" y="80" width="1543" height="730" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_05ry7sv_di" bpmnElement="Lane_05ry7sv" isHorizontal="true">
+        <dc:Bounds x="187" y="80" width="1513" height="220" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0zvk2yk_di" bpmnElement="Lane_0zvk2yk" isHorizontal="true">
+        <dc:Bounds x="187" y="300" width="1513" height="220" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1admtq3_di" bpmnElement="Lane_1admtq3" isHorizontal="true">
+        <dc:Bounds x="187" y="520" width="1513" height="290" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="290" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="265" y="215" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04q4b2a_di" bpmnElement="Activity_0h13zv2">
+        <dc:Bounds x="580" y="370" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0w6rien_di" bpmnElement="Event_0w6rien">
+        <dc:Bounds x="1482" y="652" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1457" y="695" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1rrp4l2_di" bpmnElement="Gateway_1rrp4l2" isMarkerVisible="true">
+        <dc:Bounds x="735" y="385" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="741" y="355" width="37" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ixmver_di" bpmnElement="Activity_1emma31">
+        <dc:Bounds x="580" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1mtmwjv_di" bpmnElement="Gateway_1mtmwjv" isMarkerVisible="true">
+        <dc:Bounds x="485" y="165" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10ycqpu_di" bpmnElement="Activity_0w7pg72">
+        <dc:Bounds x="1070" y="370" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01obvth_di" bpmnElement="Activity_14mlhta">
+        <dc:Bounds x="1240" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0tj2nvy_di" bpmnElement="Gateway_0tj2nvy" isMarkerVisible="true">
+        <dc:Bounds x="1265" y="385" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1252" y="348" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0a25hu8_di" bpmnElement="Activity_1ee94lw">
+        <dc:Bounds x="870" y="370" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0sf663o_di" bpmnElement="Event_0sf663o">
+        <dc:Bounds x="1592" y="392" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1572" y="440" width="76" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_14z68dw_di" bpmnElement="Flow_14z68dw">
+        <di:waypoint x="326" y="190" />
+        <di:waypoint x="485" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mnnwoe_di" bpmnElement="Flow_1mnnwoe">
+        <di:waypoint x="630" y="230" />
+        <di:waypoint x="630" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r13bel_di" bpmnElement="Flow_0r13bel">
+        <di:waypoint x="680" y="410" />
+        <di:waypoint x="735" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pc6vee_di" bpmnElement="Flow_0pc6vee">
+        <di:waypoint x="1170" y="410" />
+        <di:waypoint x="1265" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13h2m3z_di" bpmnElement="Flow_13h2m3z">
+        <di:waypoint x="1290" y="435" />
+        <di:waypoint x="1290" y="630" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1300" y="432" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hh53wa_di" bpmnElement="Flow_1hh53wa">
+        <di:waypoint x="1315" y="410" />
+        <di:waypoint x="1592" y="410" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1339" y="392" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0647aye_di" bpmnElement="Flow_0647aye">
+        <di:waypoint x="1340" y="670" />
+        <di:waypoint x="1482" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sw7zso_di" bpmnElement="Flow_0sw7zso">
+        <di:waypoint x="970" y="410" />
+        <di:waypoint x="1070" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15uakk4_di" bpmnElement="Flow_15uakk4">
+        <di:waypoint x="785" y="410" />
+        <di:waypoint x="870" y="410" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="784" y="392" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r6pt9n_di" bpmnElement="Flow_1r6pt9n">
+        <di:waypoint x="760" y="435" />
+        <di:waypoint x="760" y="500" />
+        <di:waypoint x="510" y="500" />
+        <di:waypoint x="510" y="215" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="743" y="438" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_044usj0_di" bpmnElement="Flow_044usj0">
+        <di:waypoint x="535" y="190" />
+        <di:waypoint x="580" y="190" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
