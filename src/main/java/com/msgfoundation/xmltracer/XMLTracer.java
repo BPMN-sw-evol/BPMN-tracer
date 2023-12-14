@@ -3,7 +3,9 @@ package com.msgfoundation.xmltracer;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
@@ -50,6 +52,7 @@ public class XMLTracer {
                 if (userTask.checkTaskType(element)) {
                     userTask.processElement(element);
                     jsonNode.put("taskID", userTask.getTaskID());
+                    jsonNode.put("taskName",userTask.getTaskName());
                     jsonNode.put("taskType", userTask.getTaskType());
                     jsonNode.put("taskImplementationType", userTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", userTask.getReferenceOrImplementation());
@@ -64,6 +67,7 @@ public class XMLTracer {
                 } else if (serviceTask.checkTaskType(element)) {
                     serviceTask.processElement(element);
                     jsonNode.put("taskID", serviceTask.getTaskID());
+                    jsonNode.put("taskName",serviceTask.getTaskName());
                     jsonNode.put("taskType", serviceTask.getTaskType());
                     jsonNode.put("taskImplementationType", serviceTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", serviceTask.getReferenceOrImplementation());
@@ -71,6 +75,7 @@ public class XMLTracer {
                 } else if (sendTask.checkTaskType(element)) {
                     sendTask.processElement(element);
                     jsonNode.put("taskID", sendTask.getTaskID());
+                    jsonNode.put("taskName", sendTask.getTaskName());
                     jsonNode.put("taskType", sendTask.getTaskType());
                     jsonNode.put("taskImplementationType", sendTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", sendTask.getReferenceOrImplementation());
@@ -78,6 +83,7 @@ public class XMLTracer {
                 } else if (receiveTask.checkTaskType(element)) {
                     receiveTask.processElement(element);
                     jsonNode.put("taskID", receiveTask.getTaskID());
+                    jsonNode.put("taskName", receiveTask.getTaskName());
                     jsonNode.put("taskType", receiveTask.getTaskType());
                     jsonNode.put("taskImplementationType", receiveTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", receiveTask.getReferenceOrImplementation());
@@ -85,6 +91,7 @@ public class XMLTracer {
                 } else if (businessRuleTask.checkTaskType(element)) {
                     businessRuleTask.processElement(element);
                     jsonNode.put("taskID", businessRuleTask.getTaskID());
+                    jsonNode.put("taskName", businessRuleTask.getTaskName());
                     jsonNode.put("taskType", businessRuleTask.getTaskType());
                     jsonNode.put("taskImplementationType", businessRuleTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", businessRuleTask.getReferenceOrImplementation());
@@ -92,6 +99,7 @@ public class XMLTracer {
                 } else if (scriptTask.checkTaskType(element)) {
                     scriptTask.processElement(element);
                     jsonNode.put("taskID", scriptTask.getTaskID());
+                    jsonNode.put("taskName", scriptTask.getTaskName());
                     jsonNode.put("taskType", scriptTask.getTaskType());
                     jsonNode.put("taskImplementationType", scriptTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", scriptTask.getReferenceOrImplementation());
@@ -99,6 +107,7 @@ public class XMLTracer {
                 } else if (callActivity.checkTaskType(element)) {
                     callActivity.processElement(element);
                     jsonNode.put("taskID", callActivity.getTaskID());
+                    jsonNode.put("taskName", callActivity.getTaskName());
                     jsonNode.put("taskType", callActivity.getTaskType());
                     jsonNode.put("taskImplementationType", callActivity.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", callActivity.getReferenceOrImplementation());
@@ -106,6 +115,7 @@ public class XMLTracer {
                 } else if (defaultTask.checkTaskType(element)) {
                     defaultTask.processElement(element);
                     jsonNode.put("taskID", defaultTask.getTaskID());
+                    jsonNode.put("taskName", defaultTask.getTaskName());
                     jsonNode.put("taskType", defaultTask.getTaskType());
                     jsonNode.put("taskImplementationType", defaultTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", defaultTask.getReferenceOrImplementation());
@@ -118,8 +128,21 @@ public class XMLTracer {
                 String jsonString = objectMapper.writeValueAsString(jsonArray);
                 System.out.println(jsonString);
 
-                // Guardar el JSON en un archivo
-                objectMapper.writeValue(new File("bpmn_info.json"), jsonArray);
+                // Obtener el nombre del archivo sin extensión
+                String fileNameWithoutExtension = file.getName().replaceFirst("[.][^.]+$", "");
+
+                // Crear una carpeta 'output' si no existe
+                File outputFolder = new File("output");
+                if (!outputFolder.exists()) {
+                    outputFolder.mkdir();
+                }
+
+                // Construir la ruta del archivo JSON con marca de tiempo
+                String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String outputPath = "output/" + fileNameWithoutExtension + "_" + timestamp + ".json";
+
+                // Guardar el JSON en un archivo con el nombre del modelo BPMN y marca de tiempo
+                objectMapper.writeValue(new File(outputPath), jsonArray);
             } catch (Exception e) {
                 e.printStackTrace();
             }
