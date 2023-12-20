@@ -57,12 +57,16 @@ public class XMLTracer {
                     jsonNode.put("taskImplementationType", userTask.getTaskImplementationType());
                     jsonNode.put("taskReferenceOrImplementation", userTask.getReferenceOrImplementation());
                     jsonNode.put("assignee",userTask.getAssignee());
-                    ArrayNode variablesArray = objectMapper.createArrayNode();
-                    List<String> definedVariables = userTask.getDefinedVariables();
-                    for (String variable : definedVariables) {
-                        variablesArray.add(variable);
-                    }
-                    jsonNode.set("variables", variablesArray);
+
+//                    System.out.println(userTask.hasFormFields());
+//                    if(userTask.hasFormFields() == "Have fields form"){
+//                        ArrayNode variablesArray = objectMapper.createArrayNode();
+//                        List<String> definedVariables = userTask.getDefinedVariables();
+//                        for (String variable : definedVariables) {
+//                            variablesArray.add(variable);
+//                        }
+//                        jsonNode.set("variables", variablesArray);
+//                    }
                     jsonArray.add(jsonNode);
                 } else if (serviceTask.checkTaskType(element)) {
                     serviceTask.processElement(element);
@@ -124,12 +128,17 @@ public class XMLTracer {
             }
 
             try {
-                // Convertir el ArrayNode a formato JSON y imprimirlo
-                String jsonString = objectMapper.writeValueAsString(jsonArray);
-                System.out.println(jsonString);
-
                 // Obtener el nombre del archivo sin extensión
                 String fileNameWithoutExtension = file.getName().replaceFirst("[.][^.]+$", "");
+
+                // Crear un nuevo objeto JSON con el nombre del BPM analizado y el array de elementos BPM
+                ObjectNode bpmInfoNode = objectMapper.createObjectNode();
+                bpmInfoNode.put("bpmName", fileNameWithoutExtension);
+                bpmInfoNode.set("trace", jsonArray);
+
+                // Convertir el objeto JSON a formato JSON y obtener el string
+                String jsonString = objectMapper.writeValueAsString(bpmInfoNode);
+                System.out.println(jsonString);
 
                 // Crear una carpeta 'output' si no existe
                 File outputFolder = new File("output");
@@ -142,7 +151,7 @@ public class XMLTracer {
                 String outputPath = "output/" + fileNameWithoutExtension + "_" + timestamp + ".json";
 
                 // Guardar el JSON en un archivo con el nombre del modelo BPMN y marca de tiempo
-                objectMapper.writeValue(new File(outputPath), jsonArray);
+                objectMapper.writeValue(new File(outputPath), bpmInfoNode);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,0 +1,37 @@
+{
+  "bpmName" : "autUser",
+  "trace" : [ {
+    "taskID" : "createAccountServiceTask",
+    "taskName" : "Create account",
+    "taskType" : "serviceTask",
+    "taskImplementationType" : "Java class",
+    "taskReferenceOrImplementation" : "unillanos.boosicsbpmn.delegations.UserDelegate"
+  }, {
+    "taskID" : "validateCredentialsServiceTask",
+    "taskName" : "Validate credentials",
+    "taskType" : "serviceTask",
+    "taskImplementationType" : "Java class",
+    "taskReferenceOrImplementation" : "unillanos.boosicsbpmn.delegations.UserDelegate"
+  }, {
+    "taskID" : "Activity_1s3pnzz",
+    "taskName" : "Fill in login form",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : null
+  }, {
+    "taskID" : "Activity_12p6q14",
+    "taskName" : "Fill registration form",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : null
+  }, {
+    "taskID" : "Activity_08byrjr",
+    "taskName" : "Fill registered form",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : null
+  } ]
+}
