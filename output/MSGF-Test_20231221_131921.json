@@ -1,0 +1,42 @@
+{
+  "bpmName" : "MSGF-Test",
+  "trace" : [ {
+    "taskID" : "Activity_1ee94lw",
+    "taskName" : "Consultar información financiera",
+    "taskType" : "serviceTask",
+    "taskImplementationType" : "Java class",
+    "taskReferenceOrImplementation" : "com.msgfoundation.delegation.DatabaseServiceTaskDelegate"
+  }, {
+    "taskID" : "Activity_0h13zv2",
+    "taskName" : "Revisar información pareja",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : "Credit analyst",
+    "variables" : [ "allFine", "coupleName1", "coupleName2", "creationDate", "bothEmployees", "marriageYears", "coupleEmail1", "coupleEmail2", "countReviewsBpm" ]
+  }, {
+    "taskID" : "Activity_1emma31",
+    "taskName" : "Diligenciar formulario de solicitud",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : "Married couple",
+    "variables" : [ "marriageYears", "bothEmployees", "applicantCouple", "coupleName1", "coupleName2", "creationDate", "codRequest", "coupleEmail1", "coupleEmail2", "countReviewsBpm" ]
+  }, {
+    "taskID" : "Activity_0w7pg72",
+    "taskName" : "Verificar validez",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : "Credit analyst",
+    "variables" : [ "isValid", "coupleSavings", "housePrices", "quotaValue", "coupleName1", "coupleName2", "bothEmployees", "creationDate", "marriageYears", "coupleEmail1", "coupleEmail2" ]
+  }, {
+    "taskID" : "Activity_14mlhta",
+    "taskName" : "Verificar si el crédito tiene viabilidad financiera",
+    "taskType" : "userTask",
+    "taskImplementationType" : "Generated Task Form",
+    "taskReferenceOrImplementation" : "Have fields form",
+    "assignee" : "Credit Committee",
+    "variables" : [ "financialViability", "coupleSavings", "housePrices", "quotaValue", "coupleName1", "coupleName2", "bothEmployees", "creationDate", "marriageYears", "coupleEmail1", "coupleEmail2" ]
+  } ]
+}

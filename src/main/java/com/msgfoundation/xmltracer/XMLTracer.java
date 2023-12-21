@@ -58,15 +58,15 @@ public class XMLTracer {
                     jsonNode.put("taskReferenceOrImplementation", userTask.getReferenceOrImplementation());
                     jsonNode.put("assignee",userTask.getAssignee());
 
-//                    System.out.println(userTask.hasFormFields());
-//                    if(userTask.hasFormFields() == "Have fields form"){
-//                        ArrayNode variablesArray = objectMapper.createArrayNode();
-//                        List<String> definedVariables = userTask.getDefinedVariables();
-//                        for (String variable : definedVariables) {
-//                            variablesArray.add(variable);
-//                        }
-//                        jsonNode.set("variables", variablesArray);
-//                    }
+                    System.out.println(userTask.hasFormFields());
+                    if(userTask.hasFormFields() == "Have fields form"){
+                        ArrayNode variablesArray = objectMapper.createArrayNode();
+                        List<String> definedVariables = userTask.getDefinedVariables();
+                        for (String variable : definedVariables) {
+                            variablesArray.add(variable);
+                        }
+                        jsonNode.set("variables", variablesArray);
+                    }
                     jsonArray.add(jsonNode);
                 } else if (serviceTask.checkTaskType(element)) {
                     serviceTask.processElement(element);
