@@ -1,0 +1,95 @@
+{
+  "StartEvent": {
+    "ID": "StartEvent_1",
+    "Name": "Deseo obtener un crédito con MsgFoundation",
+    "Type": "Start Event",
+    "TypeImplementation": "Generated Task Form",
+    "Form Fields": []
+  },
+  "UserTask1": {
+    "ID": "Activity_1emma31",
+    "Name": "Diligenciar formulario de solicitud",
+    "Type": "User Task",
+    "Assignee": "asdasdas",
+    "TypeImplementation": "Generated Task Form",
+    "Form Fields": [
+      "marriageYears",
+      "bothEmployees",
+      "applicantCouple",
+      "coupleName1",
+      "coupleName2",
+      "creationDate",
+      "codRequest",
+      "coupleEmail1",
+      "coupleEmail2",
+      "countReviewsBpm"
+    ]
+  },
+  "UserTask2": {
+    "ID": "Activity_0h13zv2",
+    "Name": "Revisar información pareja",
+    "Type": "User Task",
+    "TypeImplementation": "None"
+  },
+  "Gateway1": {
+    "ID": "Gateway_1rrp4l2",
+    "Name": "¿Is ok?"
+  },
+  "ServiceTask": {
+    "ID": "Activity_1ee94lw",
+    "Name": "Consultar información financiera",
+    "Type": "Service Task",
+    "TypeImplementation": "External",
+    "Implementation": "asda"
+  },
+  "UserTask3": {
+    "ID": "Activity_0w7pg72",
+    "Name": "Verificar validez",
+    "Type": "User Task",
+    "TypeImplementation": "Generated Task Form",
+    "Form Fields": [
+      "isValid",
+      "coupleSavings",
+      "housePrices",
+      "quotaValue",
+      "coupleName1",
+      "coupleName2",
+      "bothEmployees",
+      "creationDate",
+      "marriageYears",
+      "coupleEmail1",
+      "coupleEmail2"
+    ]
+  },
+  "Gateway2": {
+    "ID": "Gateway_0tj2nvy",
+    "Name": "¿La solicitud es valida?"
+  },
+  "EndEvent1": {
+    "ID": "Event_0sf663o",
+    "Name": "Solicitud cancelada por inconsistencias"
+  },
+  "UserTask4": {
+    "ID": "Activity_14mlhta",
+    "Name": "Verificar si el crédito tiene viabilidad financiera",
+    "Type": "User Task",
+    "TypeImplementation": "Generated Task Form",
+    "Form Fields": [
+      "financialViability",
+      "coupleSavings",
+      "housePrices",
+      "quotaValue",
+      "coupleName1",
+      "coupleName2",
+      "bothEmployees",
+      "creationDate",
+      "marriageYears",
+      "coupleEmail1",
+      "coupleEmail2"
+    ]
+  },
+  "EndEvent2": {
+    "ID": "Event_0w6rien",
+    "Name": "Crédito aprobado"
+  }
+}
