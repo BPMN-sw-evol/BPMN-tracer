@@ -28,13 +28,8 @@ public class XMLTracer {
     public static void main(String[] args) {
 
         // Cargar el modelo BPMN desde el archivo
-        // BpmnModelInstance modelInstance = Bpmn.readModelFromFile(new
-        // File("D:\\Universidad\\Software 1 - Profu\\SoftwareProject\\Process
-        // Source\\Models\\EMSA-1.0.0.bpmn"));
-        // BpmnModelInstance modelInstance = Bpmn.readModelFromFile(new
-        // File("c:/Users/SOPORTES JPVM/Desktop/MSGF credit request.bpmn"));
         BpmnModelInstance modelInstance = Bpmn
-                .readModelFromFile(new File("c:/Users/SOPORTES JPVM/Desktop/MSGF-Test.bpmn"));
+                .readModelFromFile(new File(""));
 
         // JsonObject para almacenar detalles
         JsonObject bpmnDetails = new JsonObject();
@@ -49,12 +44,7 @@ public class XMLTracer {
 
         File file = new File("c:/Users/SOPORTES JPVM/Desktop/MSGF-Test.bpmn");
         String fileNameWithExtension = file.getName(); // Obtiene el nombre con la extensión
-        String fileNameWithoutExtension = fileNameWithExtension.substring(0, fileNameWithExtension.lastIndexOf('.')); // Obtiene
-                                                                                                                      // el
-                                                                                                                      // nombre
-                                                                                                                      // sin
-                                                                                                                      // la
-                                                                                                                      // extensión
+        String fileNameWithoutExtension = fileNameWithExtension.substring(0, fileNameWithExtension.lastIndexOf('.')); 
 
         // Guardar el JSON en un archivo con el nombre del archivo original
         String formattedJson = formatJson(bpmnDetails.toString());

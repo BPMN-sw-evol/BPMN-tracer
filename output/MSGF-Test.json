@@ -3,14 +3,12 @@
     "ID": "StartEvent_1",
     "Name": "Deseo obtener un crédito con MsgFoundation",
     "Type": "Start Event",
-    "TypeImplementation": "Generated Task Form",
-    "Form Fields": []
+    "TypeImplementation": "None"
   },
   "UserTask1": {
     "ID": "Activity_1emma31",
     "Name": "Diligenciar formulario de solicitud",
     "Type": "User Task",
-    "Assignee": "asdasdas",
     "TypeImplementation": "Generated Task Form",
     "Form Fields": [
       "marriageYears",
@@ -29,7 +27,18 @@
     "ID": "Activity_0h13zv2",
     "Name": "Revisar información pareja",
     "Type": "User Task",
-    "TypeImplementation": "None"
+    "TypeImplementation": "Generated Task Form",
+    "Form Fields": [
+      "allFine",
+      "coupleName1",
+      "coupleName2",
+      "creationDate",
+      "bothEmployees",
+      "marriageYears",
+      "coupleEmail1",
+      "coupleEmail2",
+      "countReviewsBpm"
+    ]
   },
   "Gateway1": {
     "ID": "Gateway_1rrp4l2",
@@ -39,8 +48,8 @@
     "ID": "Activity_1ee94lw",
     "Name": "Consultar información financiera",
     "Type": "Service Task",
-    "TypeImplementation": "External",
-    "Implementation": "asda"
+    "TypeImplementation": "Java Class",
+    "Implementation": "com.msgfoundation.delegation.DatabaseServiceTaskDelegate"
   },
   "UserTask3": {
     "ID": "Activity_0w7pg72",
