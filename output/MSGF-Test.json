@@ -1,104 +1,133 @@
 {
-  "StartEvent": {
-    "ID": "StartEvent_1",
-    "Name": "Deseo obtener un crédito con MsgFoundation",
-    "Type": "Start Event",
-    "TypeImplementation": "None"
-  },
-  "UserTask1": {
-    "ID": "Activity_1emma31",
-    "Name": "Diligenciar formulario de solicitud",
-    "Type": "User Task",
-    "TypeImplementation": "Generated Task Form",
-    "Form Fields": [
-      "marriageYears",
-      "bothEmployees",
-      "applicantCouple",
-      "coupleName1",
-      "coupleName2",
-      "creationDate",
-      "codRequest",
-      "coupleEmail1",
-      "coupleEmail2",
-      "countReviewsBpm"
-    ]
-  },
-  "UserTask2": {
-    "ID": "Activity_0h13zv2",
-    "Name": "Revisar información pareja",
-    "Type": "User Task",
-    "TypeImplementation": "Generated Task Form",
-    "Form Fields": [
-      "allFine",
-      "coupleName1",
-      "coupleName2",
-      "creationDate",
-      "bothEmployees",
-      "marriageYears",
-      "coupleEmail1",
-      "coupleEmail2",
-      "countReviewsBpm"
-    ]
-  },
-  "Gateway1": {
-    "ID": "Gateway_1rrp4l2",
-    "Name": "¿Is ok?"
-  },
-  "ServiceTask": {
-    "ID": "Activity_1ee94lw",
-    "Name": "Consultar información financiera",
-    "Type": "Service Task",
-    "TypeImplementation": "Java Class",
-    "Implementation": "com.msgfoundation.delegation.DatabaseServiceTaskDelegate"
-  },
-  "UserTask3": {
-    "ID": "Activity_0w7pg72",
-    "Name": "Verificar validez",
-    "Type": "User Task",
-    "TypeImplementation": "Generated Task Form",
-    "Form Fields": [
-      "isValid",
-      "coupleSavings",
-      "housePrices",
-      "quotaValue",
-      "coupleName1",
-      "coupleName2",
-      "bothEmployees",
-      "creationDate",
-      "marriageYears",
-      "coupleEmail1",
-      "coupleEmail2"
-    ]
-  },
-  "Gateway2": {
-    "ID": "Gateway_0tj2nvy",
-    "Name": "¿La solicitud es valida?"
-  },
-  "EndEvent1": {
-    "ID": "Event_0sf663o",
-    "Name": "Solicitud cancelada por inconsistencias"
-  },
-  "UserTask4": {
-    "ID": "Activity_14mlhta",
-    "Name": "Verificar si el crédito tiene viabilidad financiera",
-    "Type": "User Task",
-    "TypeImplementation": "Generated Task Form",
-    "Form Fields": [
-      "financialViability",
-      "coupleSavings",
-      "housePrices",
-      "quotaValue",
-      "coupleName1",
-      "coupleName2",
-      "bothEmployees",
-      "creationDate",
-      "marriageYears",
-      "coupleEmail1",
-      "coupleEmail2"
-    ]
-  },
-  "EndEvent2": {
-    "ID": "Event_0w6rien",
-    "Name": "Crédito aprobado"
-  }
+  "bpmPath": "C:\\Users\\SOPORTES JPVM\\Desktop\\MSGF-Test.bpmn",
+  "bpmNameFile": "MSGF-Test.bpmn",
+  "bpmNameProcess": "MsgFoundation - Credit Request",
+  "trace": [
+    {
+      "taskID": "StartEvent_1",
+      "taskName": "Deseo obtener un crédito con MsgFoundation",
+      "taskType": "Start Event",
+      "taskImplementationType": "None",
+      "taskReferenceOrImplementation": "None"
+    },
+    {
+      "taskID": "Flow_1r6pt9n",
+      "taskName": "Flow_1r6pt9n",
+      "taskType": "Sequence Flow",
+      "taskImplementationType": "Expression",
+      "variables": "allFine"
+    },
+    {
+      "taskID": "Activity_1emma31",
+      "taskName": "Diligenciar formulario de solicitud",
+      "taskType": "User Task",
+      "taskImplementationType": "Generated Task Form",
+      "taskReferenceOrImplementation": "Have a Fields Form",
+      "variables": [
+        "marriageYears",
+        "bothEmployees",
+        "applicantCouple",
+        "coupleName1",
+        "coupleName2",
+        "creationDate",
+        "codRequest",
+        "coupleEmail1",
+        "coupleEmail2",
+        "countReviewsBpm"
+      ]
+    },
+    {
+      "taskID": "Activity_0h13zv2",
+      "taskName": "Revisar información pareja",
+      "taskType": "User Task",
+      "taskImplementationType": "Generated Task Form",
+      "taskReferenceOrImplementation": "Have a Fields Form",
+      "variables": [
+        "allFine",
+        "coupleName1",
+        "coupleName2",
+        "creationDate",
+        "bothEmployees",
+        "marriageYears",
+        "coupleEmail1",
+        "coupleEmail2",
+        "countReviewsBpm"
+      ]
+    },
+    {
+      "taskID": "Gateway_1rrp4l2",
+      "taskName": "¿Is ok?",
+      "taskType": "Gateway",
+      "taskImplementationType": "None",
+      "taskReferenceOrImplementation": "None"
+    },
+    {
+      "taskID": "Activity_1ee94lw",
+      "taskName": "Consultar información financiera",
+      "taskType": "Service Task",
+      "taskImplementationType": "Java Class",
+      "taskReferenceOrImplementation": "com.msgfoundation.delegation.DatabaseServiceTaskDelegate"
+    },
+    {
+      "taskID": "Activity_0w7pg72",
+      "taskName": "Verificar validez",
+      "taskType": "User Task",
+      "taskImplementationType": "Generated Task Form",
+      "taskReferenceOrImplementation": "Have a Fields Form",
+      "variables": [
+        "isValid",
+        "coupleSavings",
+        "housePrices",
+        "quotaValue",
+        "coupleName1",
+        "coupleName2",
+        "bothEmployees",
+        "creationDate",
+        "marriageYears",
+        "coupleEmail1",
+        "coupleEmail2"
+      ]
+    },
+    {
+      "taskID": "Gateway_0tj2nvy",
+      "taskName": "¿La solicitud es valida?",
+      "taskType": "Gateway",
+      "taskImplementationType": "None",
+      "taskReferenceOrImplementation": "None"
+    },
+    {
+      "taskID": "Event_0sf663o",
+      "taskName": "Solicitud cancelada por inconsistencias",
+      "taskType": "End Event",
+      "taskImplementationType": "None",
+      "taskReferenceOrImplementation": "None"
+    },
+    {
+      "taskID": "Activity_14mlhta",
+      "taskName": "Verificar si el crédito tiene viabilidad financiera",
+      "taskType": "User Task",
+      "taskImplementationType": "Generated Task Form",
+      "taskReferenceOrImplementation": "Have a Fields Form",
+      "variables": [
+        "financialViability",
+        "coupleSavings",
+        "housePrices",
+        "quotaValue",
+        "coupleName1",
+        "coupleName2",
+        "bothEmployees",
+        "creationDate",
+        "marriageYears",
+        "coupleEmail1",
+        "coupleEmail2"
+      ]
+    },
+    {
+      "taskID": "Event_0w6rien",
+      "taskName": "Crédito aprobado",
+      "taskType": "End Event",
+      "taskImplementationType": "None",
+      "taskReferenceOrImplementation": "None"
+    }
+  ]
 }
